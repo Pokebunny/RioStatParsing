@@ -14,3 +14,5 @@ elif stars == 1:
     url += "&tag=Superstar"
 if ranked == 1:
     url += "&tag=Ranked"
+
+print("Hello World")
