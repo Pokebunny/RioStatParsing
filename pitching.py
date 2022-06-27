@@ -24,18 +24,21 @@ if user != "":
 response = requests.get(url).json()
 
 stats = response["Stats"]["Pitching"]
+# batter avg vs pitcher
 d_avg = stats["hits_allowed"] / (stats["batters_faced"]-stats["walks_bb"]-stats["walks_hbp"])
 era = 9 * stats["runs_allowed"] / (stats["outs_pitched"] / 3)
+# strikeout percentage
 kp = (stats["strikeouts_pitched"] / stats["batters_faced"])*100
 
 overall = all_response["Stats"]["Pitching"]
 overall_davg = overall["hits_allowed"] / (overall["batters_faced"] - overall["walks_bb"] - overall["walks_hbp"])
 overall_era = 9 * overall["runs_allowed"] / (overall["outs_pitched"] / 3)
 overall_kp = (stats["strikeouts_pitched"] / stats["batters_faced"])*100
-era_minus = ((era / overall_era)) * 100
+# character ERA-
+cera_minus = ((era / overall_era)) * 100
 
 print("opAVG / ERA / K%")
-print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp)+"%" + " / " + "{:.0f}".format(era_minus) + " oERA+")
+print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp)+"%" + " / " + "{:.0f}".format(cera_minus) + " cERA-")
 
 url += "&by_char=1"
 
@@ -63,5 +66,5 @@ for char in sorted_char_list:
         overall_davg = overall["hits_allowed"] / (overall["batters_faced"] - overall["walks_bb"] - overall["walks_hbp"])
         overall_era = 9 * overall["runs_allowed"] / (overall["outs_pitched"] / 3)
         overall_kp = (overall["strikeouts_pitched"] / overall["batters_faced"])*100
-        era_minus = ((era / overall_era)) * 100
-        print(char + " / " + "{:.0f}".format(char_stats["batters_faced"]) + " batter(s) faced" + " / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((era_minus))) + " oERA-")
+        cera_minus = ((era / overall_era)) * 100
+        print(char + " / " + "{:.0f}".format(char_stats["batters_faced"]) + " batter(s) faced" + " / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + " cERA-")
