@@ -38,8 +38,12 @@ overall_kp = (stats["strikeouts_pitched"] / stats["batters_faced"])*100
 cera_minus = ((era / overall_era)) * 100
 
 print("opAVG / ERA / K%")
-print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp)+"%" + " / " + "{:.0f}".format(cera_minus) + " cERA-")
 
+# not sure if overall is cERA or ERA, I assume the latter though
+if user != "":
+    print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp)+"%" + " / " + "{:.0f}".format(cera_minus) + " cERA-")
+else:
+    print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp) + "%" + " / " + "{:.0f}".format(cera_minus) + " ERA-")
 url += "&by_char=1"
 
 response = requests.get(url).json()
@@ -59,12 +63,13 @@ for char in sorted_char_list:
 
 
 
-
+        char_or_all = " cERA-"
         overall = all_char_response["Stats"][char]["Pitching"]
         if user == "":
             overall = all_response["Stats"]["Pitching"]
+            char_or_all = " ERA-"
         overall_davg = overall["hits_allowed"] / (overall["batters_faced"] - overall["walks_bb"] - overall["walks_hbp"])
         overall_era = 9 * overall["runs_allowed"] / (overall["outs_pitched"] / 3)
         overall_kp = (overall["strikeouts_pitched"] / overall["batters_faced"])*100
         cera_minus = ((era / overall_era)) * 100
-        print(char + " / " + "{:.0f}".format(char_stats["batters_faced"]) + " batter(s) faced" + " / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + " cERA-")
+        print(char + " / " + "{:.0f}".format(char_stats["batters_faced"]) + " batter(s) faced" + " / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + char_or_all)
