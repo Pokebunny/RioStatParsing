@@ -61,9 +61,11 @@ for char in sorted_char_list:
         pa = char_stats["plate_appearances"]
 
         overall = all_char_response["Stats"][char]["Batting"]
+        c_o = " cOPS+"
         if user == "":
             overall = all_response["Stats"]["Batting"]
+            c_o = " OPS+"
         overall_obp = (overall["summary_hits"] + overall["summary_walks_hbp"] + overall["summary_walks_bb"]) / overall["plate_appearances"]
         overall_slg = (overall["summary_singles"] + (overall["summary_doubles"] * 2) + (overall["summary_triples"] * 3) + (overall["summary_homeruns"] * 4)) / overall["summary_at_bats"]
         ops_plus = ((obp / overall_obp) + (slg / overall_slg) - 1) * 100
-        print(char + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + " / " + "{:.3f}".format(ops) + ", " + str(round(ops_plus)) + " cOPS+")
+        print(char + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + " / " + "{:.3f}".format(ops) + ", " + str(round(ops_plus)) + c_o)

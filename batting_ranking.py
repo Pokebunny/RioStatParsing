@@ -32,6 +32,7 @@ if char == "":
     overall = total_response["Stats"]["Batting"]
 else:
     overall = total_response["Stats"][char]["Batting"]
+overall_avg = overall["summary_hits"] / overall["summary_at_bats"]
 overall_obp = (overall["summary_hits"] + overall["summary_walks_hbp"] + overall["summary_walks_bb"]) / overall["plate_appearances"]
 overall_slg = (overall["summary_singles"] + (overall["summary_doubles"] * 2) + (overall["summary_triples"] * 3) + (overall["summary_homeruns"] * 4)) / overall["summary_at_bats"]
 
@@ -56,6 +57,7 @@ for user in user_response["Stats"]:
 sorted_user_list = sorted(user_dict.keys(), key=lambda x: user_dict[x][5], reverse=True)
 
 print("AVG / OBP / SLG / OPS")
+print("ALL (" + str(overall["plate_appearances"]) + " PA): " + "{:.3f}".format(overall_avg) + " / " + "{:.3f}".format(overall_obp) + " / " + "{:.3f}".format(overall_slg) + " / " + "{:.3f}".format(overall_obp + overall_slg))
 
 for user in sorted_user_list:
     pa = user_dict[user][0]
@@ -64,4 +66,7 @@ for user in sorted_user_list:
     slg = user_dict[user][3]
     ops = user_dict[user][4]
     ops_plus = user_dict[user][5]
-    print(user + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + " / " + "{:.3f}".format(ops) + ", " + str(round(ops_plus)) + " cOPS+")
+    c_o = " cOPS+"
+    if char == "":
+        c_o = " OPS+"
+    print(user + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + " / " + "{:.3f}".format(ops) + ", " + str(round(ops_plus)) + c_o)
