@@ -68,6 +68,8 @@ for char in sorted_char_list:
             char_or_all = " ERA-"
         overall_avg = overall["hits_allowed"] / (overall["batters_faced"] - overall["walks_bb"] - overall["walks_hbp"])
         overall_era = 9 * overall["runs_allowed"] / (overall["outs_pitched"] / 3)
-        overall_kp = (overall["strikeouts_pitched"] / overall["batters_faced"])*100
+        overall_kp = (overall["strikeouts_pitched"] / overall["batters_faced"]) * 100
         cera_minus = (era / overall_era) * 100
-        print(char + " / " + "{:.0f}".format(char_stats["batters_faced"]) + " batter(s) faced" + " / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + char_or_all)
+        IP = char_stats["outs_pitched"] // 3
+        IP_str = str(IP + (0.1 * (char_stats["outs_pitched"] % 3)))
+        print(char + " / " + IP_str + " IP / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + char_or_all)
