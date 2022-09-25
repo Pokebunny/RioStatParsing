@@ -25,7 +25,7 @@ response = requests.get(url).json()
 
 stats = response["Stats"]["Pitching"]
 # batter avg vs pitcher
-d_avg = stats["hits_allowed"] / (stats["batters_faced"]-stats["walks_bb"]-stats["walks_hbp"])
+d_avg = stats["hits_allowed"] / (stats["batters_faced"] - stats["walks_bb"] - stats["walks_hbp"])
 era = 9 * stats["runs_allowed"] / (stats["outs_pitched"] / 3)
 # strikeout percentage
 kp = (stats["strikeouts_pitched"] / stats["batters_faced"])*100
@@ -33,7 +33,7 @@ kp = (stats["strikeouts_pitched"] / stats["batters_faced"])*100
 overall = all_response["Stats"]["Pitching"]
 overall_avg = overall["hits_allowed"] / (overall["batters_faced"] - overall["walks_bb"] - overall["walks_hbp"])
 overall_era = 9 * overall["runs_allowed"] / (overall["outs_pitched"] / 3)
-overall_kp = (stats["strikeouts_pitched"] / stats["batters_faced"])*100
+overall_kp = (stats["strikeouts_pitched"] / stats["batters_faced"]) * 100
 # character ERA-
 cera_minus = (era / overall_era) * 100
 
@@ -41,7 +41,7 @@ print("opAVG / ERA / K%")
 
 # not sure if overall is cERA or ERA, I assume the latter though
 if user != "":
-    print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp)+"%" + " / " + "{:.0f}".format(cera_minus) + " ERA-")
+    print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp) + "%" + " / " + "{:.0f}".format(cera_minus) + " ERA-")
 else:
     print("OVERALL: " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp) + "%" + " / " + "{:.0f}".format(cera_minus) + " ERA-")
 url += "&by_char=1"
@@ -72,4 +72,4 @@ for char in sorted_char_list:
         cera_minus = (era / overall_era) * 100
         IP = char_stats["outs_pitched"] // 3
         IP_str = str(IP + (0.1 * (char_stats["outs_pitched"] % 3)))
-        print(char + " / " + IP_str + " IP / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA " " / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + char_or_all)
+        print(char + " / " + IP_str + " IP / " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " ERA / " + "{:.1f}".format(kp) + "%" + " / " + str(round((cera_minus))) + char_or_all)

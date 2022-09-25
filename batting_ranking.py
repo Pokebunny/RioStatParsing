@@ -69,5 +69,5 @@ for user in sorted_user_list:
     c_o = " cOPS+"
     if char == "":
         c_o = " OPS+"
-    if pa > 15:
+    if pa > 500 or (pa > 50 and char != ""):
         print(user + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + " / " + "{:.3f}".format(ops) + ", " + str(round(ops_plus)) + c_o)

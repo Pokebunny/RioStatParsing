@@ -35,7 +35,7 @@ else:
 
 overall_avg = overall["hits_allowed"] / (overall["batters_faced"] - overall["walks_bb"] - overall["walks_hbp"])
 overall_era = 9 * overall["runs_allowed"] / (overall["outs_pitched"] / 3)
-overall_kp = (overall["strikeouts_pitched"] / overall["batters_faced"])*100
+overall_kp = (overall["strikeouts_pitched"] / overall["batters_faced"]) * 100
 overall_outs = overall["outs_pitched"]
 overall_ip = overall_outs // 3
 overall_ip_str = str(overall_ip + (0.1 * (overall_outs % 3)))
@@ -72,5 +72,5 @@ for user in sorted_user_list:
     c_o = " cERA-"
     if char == "":
         c_o = " ERA-"
-    if (char != "" and outs > 60) or outs > 150:
+    if (char != "" and outs > 100) or outs > 300:
         print(user + " (" + ip_str + " IP): " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp) + "%, " + str(round(cera_minus)) + c_o)
