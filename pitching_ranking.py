@@ -4,16 +4,10 @@ print("Enter name of character (blank for all stats):")
 char = input()
 print("Enter '0' for stars-off data; '1' for stars-on")
 stars = int(input())
-print("Enter '0' for all data, '1' for ranked only")
-ranked = int(input())
 
-url = "https://projectrio-api-1.api.projectrio.app/detailed_stats/?exclude_batting=1&exclude_fielding=1&exclude_misc=1"
+url = "https://api.projectrio.app/stats/?exclude_batting=1&exclude_fielding=1&exclude_misc=1"
 if stars == 0:
-    url += "&tag=Normal"
-elif stars == 1:
-    url += "&tag=Superstar"
-if ranked == 1:
-    url += "&tag=Ranked"
+    url += "&tag=StarsOffSeason5"
 
 if char != "":
     url += "&by_char=1"
@@ -72,5 +66,5 @@ for user in sorted_user_list:
     c_o = " cERA-"
     if char == "":
         c_o = " ERA-"
-    if (char != "" and outs > 100) or outs > 300:
+    if (char != "" and outs > 100) or outs > 150:
         print(user + " (" + ip_str + " IP): " + "{:.3f}".format(d_avg) + " / " + "{:.2f}".format(era) + " / " + "{:.1f}".format(kp) + "%, " + str(round(cera_minus)) + c_o)

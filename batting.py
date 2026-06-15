@@ -2,18 +2,14 @@ import requests
 
 print("Enter username of player (blank for all stats):")
 user = input()
-print("Enter '0' for stars-off data; '1' for stars-on")
-stars = int(input())
-print("Enter '0' for all data, '1' for ranked only")
-ranked = int(input())
 
-url = "https://projectrio-api-1.api.projectrio.app/detailed_stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1"
-if stars == 0:
-    url += "&tag=Normal"
-elif stars == 1:
-    url += "&tag=Superstar"
-if ranked == 1:
-    url += "&tag=Ranked"
+url = "https://api.projectrio.app/stats/?exclude_pitching=1&exclude_fielding=1&exclude_misc=1&tag=S9SuperstarsOff"
+# if stars == 0:
+#     url += "&tag=Normal"
+# elif stars == 1:
+#     url += "&tag=Superstar"
+# if ranked == 1:
+#     url += "&tag=Ranked"
 
 all_response = requests.get(url).json()
 all_char_response = requests.get(url + "&by_char=1").json()
@@ -38,8 +34,8 @@ overall_obp = (overall["summary_hits"] + overall["summary_walks_hbp"] + overall[
 overall_slg = (overall["summary_singles"] + (overall["summary_doubles"] * 2) + (overall["summary_triples"] * 3) + (overall["summary_homeruns"] * 4)) / overall["summary_at_bats"]
 ops_plus = ((o_obp / overall_obp) + (o_slg / overall_slg) - 1) * 100
 
-print("AVG / OBP / SLG / OPS")
-print("OVERALL (" + str(o_pa) + " PA): " + "{:.3f}".format(o_avg) + " / " + "{:.3f}".format(o_obp) + " / " + "{:.3f}".format(o_slg) + " / " + "{:.3f}".format(o_ops) + ", " + str(round(ops_plus)) + " OPS+")
+print("AVG / OBP / SLG")
+print("OVERALL (" + str(o_pa) + " PA): " + "{:.3f}".format(o_avg) + " / " + "{:.3f}".format(o_obp) + " / " + "{:.3f}".format(o_slg) + ", " + str(round(ops_plus)) + " OPS+")
 
 url += "&by_char=1"
 
@@ -70,4 +66,4 @@ for char in sorted_char_list:
         overall_obp = (overall["summary_hits"] + overall["summary_walks_hbp"] + overall["summary_walks_bb"]) / overall_pa
         overall_slg = (overall["summary_singles"] + (overall["summary_doubles"] * 2) + (overall["summary_triples"] * 3) + (overall["summary_homeruns"] * 4)) / overall["summary_at_bats"]
         ops_plus = ((obp / overall_obp) + (slg / overall_slg) - 1) * 100
-        print(char + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + " / " + "{:.3f}".format(ops) + ", " + str(round(ops_plus)) + c_o)
+        print(char + " (" + str(pa) + " PA): " + "{:.3f}".format(avg) + " / " + "{:.3f}".format(obp) + " / " + "{:.3f}".format(slg) + ", " + str(round(ops_plus)) + c_o)

@@ -33,18 +33,18 @@ stars = int(input())
 print("Enter '0' for all data, '1' for ranked only")
 ranked = int(input())
 
-contact_url = "https://projectrio-api-1.api.projectrio.app/plate_data/?contact=0&contact=1&contact=2&contact=3&contact=4"
-pitching_url = "https://projectrio-api-1.api.projectrio.app/detailed_stats/?exclude_batting=1&exclude_fielding=1&exclude_misc=1"
+contact_url = "https://api.projectrio.app/plate_data/?contact=0&contact=1&contact=2&contact=3&contact=4"
+pitching_url = "https://api.projectrio.app/stats/?exclude_batting=1&exclude_fielding=1&exclude_misc=1"
 
 if stars == 0:
-    contact_url += "&tag=Normal"
-    pitching_url += "&tag=Normal"
-elif stars == 1:
-    contact_url += "&tag=Superstar"
-    pitching_url += "&tag=Superstar"
-if ranked == 1:
-    contact_url += "&tag=Ranked"
-    pitching_url += "&tag=Ranked"
+    contact_url += "&tag=StarsOffSeason4"
+    pitching_url += "&tag=StarsOffSeason4"
+# elif stars == 1:
+#     contact_url += "&tag=Superstar"
+#     pitching_url += "&tag=Superstar"
+# if ranked == 1:
+#     contact_url += "&tag=Ranked"
+#     pitching_url += "&tag=Ranked"
 if user != "":
     contact_url += "&users_as_pitcher=1&username=" + user
     pitching_url += "&username=" + user
